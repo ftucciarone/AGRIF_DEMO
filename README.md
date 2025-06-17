@@ -94,14 +94,12 @@ The header of the newly created file reads:
 # time
 # @ wall_clock_limit = 0:30:00
 # @ queue
-
 #
 # Test specific settings. Do not hand edit these lines; the fcm_job.sh script will set these
 # (via sed operating on this template job file).
 #
   OCEANCORES=NPROCS
   export SETTE_DIR=DEF_SETTE_DIR
-
 ###############################################################
 ```
 This part is the only part that has to be modified by the user. In particular, it should be changed accordingly to your job scheduler (or leave it as is if you don't plan to use a scheduler). It widely varies among scheduler, but an example with [OAR](oar.imag.fr) is
@@ -117,27 +115,31 @@ Finally, set the Sette directory as
 SETTE_DIR=/path/to/nemo-5.0/sette
 ```
   
-3) Download input files by running sette_fetch_inputs.sh
-In case you have problems with certificate, you can edit the sette_fetch_inputs.sh, look for the wget function and add the condition to ‘no certificate needed’:
-```wget --no-check-certificate https://gws-access.jasmin.ac.uk/public/nemo/sette_inputs/r${suff}/$full_file")
- 
+3) Download input files by running `sette_fetch_inputs.sh`
+> [!TIP] 
+> In case you have problems with certificate, you can edit the `sette_fetch_inputs.sh`, look for the wget function and add the condition to ‘no certificate needed’:
+> ```
+> wget --no-check-certificate 
+> https://gws-access.jasmin.ac.uk/public/nemo/sette_inputs/r${suff}/$full_file")
+> ```
+
 4) Compiling and running:
 You can either just compile the NEMO code through the SETTE environment by running:
-```
+```shell
 ./sette.sh -n AGRIF_DEMO -x COMPILE
 ```
-This will compile the AGRIF_DEMO creating the new configuration named AGRIF_DEMO_ST (it will add the suffix 'ST'). If you don't add the COMPILE condition, it will automatically compile NEMO and submit the jobs for running the different experiments available:
-```
+This will compile the `AGRIF_DEMO` creating the new configuration named `AGRIF_DEMO_ST` (it will add the suffix 'ST'). If you don't add the COMPILE condition, it will automatically compile NEMO and submit the jobs for running the different experiments available:
+```shell
 ./sette.sh -n AGRIF_DEMO
 ```
  
 If you want to create a new configuration different from a previous one you have already created, or with an additional suffix, you can compile using `-g X`:
-```
+```shell
 ./sette.sh -n AGRIF_DEMO -g 2
 ```
 Please note that it has to be a single alphanumeric character (e.g. 2).
  
-# Running a test case for AGRIF_DEMO
+# Running a test case for `AGRIF_DEMO`
  
 AGRIF_DEMO contains a set of different test cases:
 
@@ -157,10 +159,14 @@ We can look at experiments 1), 2) and 3) to check the following conditions:
 * Compile and run with agrif, one zoom but same resolution
 * Compile and run with agrif plus zooms
 
-When using AGRIF, each nested 
+When using AGRIF, the files correspondent to each nested model will be named with a prefix according to the hierarchy of the nesting. For this test case there is the global model with no prefix, and the subsequence of nested experiments are:
 1= Agrif domain nested in the global model with the same horizontal and vertical resolution as the parent (1:1 ratio).
 2= Agrif domain nested in the global model with a refinement of 4 (1:4)
 3= Agrif subdomain nestes in model 2 with a refinement of 3.
+
+The nomenclature of each model namelists, configuration file and forcing fields need to follow this rule (e.g. `1_namelist_cfg`, `1_namelist_ref`, `1_domain_cfg.nc`, `1_data_1m_salinity_nomask.nc`). The same is expected for the ouptut files (e.g. `1_ocean.output`, `1_AGRIF_DEMO_LONG_5d_00010101_00010331_grid_T.nc`).
+
+
 The nested subdomain 3 has also a vertical refinement, which has to be activated in the 3_namelist_cfg:
 ln_vert_remap   = .true. !  vertical remapping
  
