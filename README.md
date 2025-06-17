@@ -43,8 +43,7 @@ and then remove it if not needed
  
  
 # Compiling and preparing a test case with SETTE
-NEMO allows you to compile and run reference and test cases with a SETTE environment and validate them. A complete guide to use SETTE is provided here:
-https://sites.nemo-ocean.io/user-guide/sette.html#installation
+NEMO allows you to compile and run reference and test cases with a [SETTE](https://sites.nemo-ocean.io/user-guide/sette.html) environment and validate them. A complete guide to use SETTE is provided [here](https://sites.nemo-ocean.io/user-guide/sette.html#installation).
 
 In this tutorial we will go through the AGRIF_DEMO case.
 
