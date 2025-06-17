@@ -7,7 +7,7 @@
 Downloading NEMO 5.0.1.
 https://forge.nemo-ocean.eu/nemo/nemo/-/releases/5.0.1
  
-1.0) Download the Nemo code from GitLab, this can be done 'checking out' the 5.0 or 5.0.1 release from GitLab as
+#### 1.0) Download the Nemo code from GitLab, this can be done 'checking out' the 5.0 or 5.0.1 release from GitLab as
 
 ```shell
 git clone --branch 5.0   https://forge.nemo-ocean.eu/nemo/nemo.git nemo-5.0
@@ -25,7 +25,7 @@ The NEMO Ocean Engine Reference manual has been updated for version 5.0 and can 
 > ```
 > where `/path/to/HDF5` can be found with `h5pcc -showconfig`. The path to XIOS is actually the download folder of XIOS. This tool with create the architecture file `arch/arch-auto.fcm`.
 
-1.1) Test the installation trying to compile a simple configuration, e.g. the Gyre configuration:
+#### 1.1) Test the installation trying to compile a simple configuration, e.g. the Gyre configuration:
 ```shell
 ./makenemo -m 'auto' -r GYRE_PISCES -n 'MY_GYRE' -j 8
 ```
