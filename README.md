@@ -9,6 +9,7 @@ This README.md serves as an Table of Contents.
 
 **Prerequisites:**
 - [Install dependencies](chapters/Install_dependencies.md)
+- [The safe way: use a Docker container](chapters/Docker.md)
 - [Install NEMO v5.0](chapters/Install_NEMO.md)
 - [Build test cases with SETTE](chapters/Sette.md)
 

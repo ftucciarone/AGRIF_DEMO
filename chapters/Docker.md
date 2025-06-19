@@ -1,4 +1,4 @@
-# Alternative route: set up a Docker container
+# The safe way: use a Docker container
 
 
 
