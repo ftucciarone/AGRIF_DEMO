@@ -58,7 +58,6 @@ export NEMODIR=$ROOT
 mkdir -p $WORKDIR
 mkdir -p $INSTDIR
 mkdir -p $XIOSDIR
-mkdir -p $NEMODIR
 
 # compilers
 export CC=/usr/bin/mpicc
@@ -78,6 +77,29 @@ export LDFLAGS="-O3 -fPIC "
 export FCFLAGS_f90="-O3 -fPIC "
 ```
 
+### Step 2: Install the packages
+This part should be adapted, depending on the machine you are using. In this example, an Ubuntu machine is used and thus the package manager is `apt`. 
+```shell
+# Install the packages
+sudo apt-get -y update
+sudo apt-get install -y openmpi-bin libmpich-dev libopenmpi-dev gcc g++ gfortran subversion libcurl4-openssl-dev wget make m4 git liburi-perl libxml2-dev
+```
 
+### Step 3: Install Zlib
+According to [zlib](https://www.zlib.net)'s documentation, **zlib** is designed to be a free, general-purpose, legally unencumbered -- that is, not covered by any patents -- lossless data-compression library for use on virtually any computer hardware and operating system. The zlib data format is itself portable across platforms. It is a prerequisite for NetCDF (if I understood correctly). Check the website for the latest version and manually set this variable. Then, the installation procedure is the following.
+```shell
+cd $WORKDIR
+LIB_VERSION="zlib-1.3.1"
+wget https://www.zlib.net/${LIB_VERSION}.tar.gz
+tar xvfz ${LIB_VERSION}.tar.gz
+cd $LIB_VERSION
+./configure --prefix=$INSTDIR
+make -j1
+#make check
+make install
+echo " " 
+```
+> [!NOTE]
+> Note that we have just started populating the `$ROOT/nemo-deps/installs` directory.
 
 
