@@ -100,6 +100,28 @@ make install
 echo " " 
 ```
 > [!NOTE]
-> Note that we have just started populating the `$ROOT/nemo-deps/installs` directory.
+> We have just started populating the `$ROOT/nemo-deps/installs` directory. This will be indicated by the variable `$INSTDIR`. You can check with `echo $INSTDIR` that this is the correct folder if you do this in different moments and not right after step 1.
 
+### Step 4: Install HDF5
+Hierarchical Data Format (HDF) is a set of file formats (HDF4, HDF5) designed to store and organize large amounts of data. It is supported by The [HDF Group](https://www.hdfgroup.org), a non-profit corporation whose mission is to ensure continued development of HDF5 technologies and the continued accessibility of data stored in HDF.
 
+You should check at the [download](https://support.hdfgroup.org/downloads/hdf5/hdf5_1_14_6.html) page which is the version you want to install, but download it from their [GitHb Releases](https://github.com/HDFGroup/hdf5/releases) page.
+
+Once the version has been chosen, manually change the version (and check the link) and run the following:
+```shell
+cd $WORKDIR
+LIB_VERSION="hdf5_1.14.6"
+wget https://github.com/HDFGroup/hdf5/archive/refs/tags/${LIB_VERSION}.tar.gz
+tar xvfz ${LIB_VERSION}.tar.gz
+cd hdf5-$LIB_VERSION
+export HDF5_Make_Ignore=yes
+# Configure
+./configure --prefix=$INSTDIR --enable-fortran  --enable-parallel --enable-hl --enable-shared --with-zlib=$INSTDIR
+# Make and install
+make -j1
+#make check
+make install
+echo " " 
+```
+
+### Step 5: Install NetCDF-C and NetCDF-F
