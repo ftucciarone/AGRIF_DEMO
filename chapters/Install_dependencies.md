@@ -95,7 +95,7 @@ tar xvfz ${LIB_VERSION}.tar.gz
 cd $LIB_VERSION
 ./configure --prefix=$INSTDIR
 make -j1
-#make check
+##make check
 make install
 echo " " 
 ```
@@ -119,9 +119,46 @@ export HDF5_Make_Ignore=yes
 ./configure --prefix=$INSTDIR --enable-fortran  --enable-parallel --enable-hl --enable-shared --with-zlib=$INSTDIR
 # Make and install
 make -j1
-#make check
+##make check
 make install
 echo " " 
 ```
 
 ### Step 5: Install NetCDF-C and NetCDF-F
+```shell
+# install netcdf-c
+cd $WORKDIR
+LIB_VERSION="4.9.3"
+wget https://github.com/Unidata/netcdf-c/archive/refs/tags/v${LIB_VERSION}.tar.gz
+tar xvfz v${LIB_VERSION}.tar.gz
+cd netcdf-c-${LIB_VERSION}
+export CPPFLAGS="-I$INSTDIR/include -DpgiFortran"
+export LDFLAGS="-Wl,-rpath,$INSTDIR/lib -L$INSTDIR/lib -lhdf5_hl -lhdf5"
+export LIBS="-lmpi"
+./configure --prefix=$INSTDIR --enable-netcdf-4 --enable-shared \
+            --enable-parallel-tests
+make -j1
+##make check
+make install
+echo " " 
+
+# Install netcdf-fortran
+cd $WORKDIR
+LIB_VERSION="4.6.2"
+wget https://github.com/Unidata/netcdf-fortran/archive/refs/tags/v${LIB_VERSION}.tar.gz
+tar xvfz v${LIB_VERSION}.tar.gz
+cd netcdf-fortran-${LIB_VERSION}
+export LD_LIBRARY_PATH=${NCDIR}/lib:${LD_LIBRARY_PATH}
+export CPPFLAGS="-I$INSTDIR/include -DpgiFortran"
+export LDFLAGS="-Wl,-rpath,$INSTDIR/lib -L$INSTDIR/lib -lnetcdf -lhdf5_hl -lhdf5 -lz -lcurl"
+export LIBS="-lmpi"
+./configure --prefix=$INSTDIR \
+            --enable-shared --enable-parallel-tests \
+            --enable-parallel
+make -j1
+##make check
+make install
+echo " " 
+```
+
+## Install XIOS
