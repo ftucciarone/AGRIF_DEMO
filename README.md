@@ -48,20 +48,19 @@ ln_vert_remap = .true. ! vertical remapping
  ```
 
 ## Creating the domain configuration files using `DOMAINcfg` tool:
-
 Before compiling the tool, you will need to add the `key_agrif` to your cpp file:
-```shell
+```
 /path/to/nemo-5.0.1/tools/DOMAINcfg/cpp_DOMAINcfg.fcm
 ```
 After that you can compile the DOMAINcfg tool using this command:
-```shell
+```
 ./maketools -m [...] -n DOMAINcfg
 ```
 Parent domain will be defined based on the specifications of the namelist, either by reading a configuration file (ln_read_cfg = .true.) or by defining manually in your namelist (e.g. ppglam0, ppgphi0).
 Child domain will be defined based on `AGRIF_FixedGrids.in`, with respect to parent grid information.
 
 The bathymetry for each of the grids will be computed based on the information you put in `nn_bathy`:
-```fortran
+```
 nn_bathy = 1  ! = 0 compute analyticaly
               ! = 1 read the bathymetry file
               ! = 2 compute from external bathymetry
@@ -71,18 +70,18 @@ nn_bathy = 1  ! = 0 compute analyticaly
 For the option `nn_bathy = 1` the bathymetry needs to be already interpolated to the model grid. For the parent grid, if you provide a coordinates file (`ln_read_cfg = .true.`), longitude and latitude definitions will follow this file. If you set `ln_read_cfg = .false.`, the coordinates of the output `domain_cfg.nc` will follow the definitions in the `namelist_cfg`, where you define, for example, ilon and ilat (`ppglam0, ppgphi0`),  grid spacing (`ppe1_deg, ppe2_deg`), etc.
 Be aware that when creating the child bathymetry, if you set `nn_bathy = 1`, the bathymetry you are reading need to match the exact domain size and position defined in the `AGRIF_FixedGrids.in`. The tool in this case will not consider the latitude and longitude of the bathymetry provided, but instead it will just overlap that region provided from the file to the domain specifications defined in `AGRIF_FixedGrids.in`.
 
-The choice `nn_bathy = 2` will read a bathymetry file and interpolate it to the model grid. This process is done also with a “lake-filling” algorithm that removes any small wet domains not connected to the zoom edges.
+The choice `nn_bathy = 2` will read a bathymetry file and interpolate it to the model grid. 
 
-With `nn_bathy = 3` the tool will simply refine the parent bathymetry in the region defined in `AGRIF_FixedGrids.in`, without reading any external file.
+With `nn_bathy = 3` the tool will simply compute the bathymetry from the parent one, in the region defined in `AGRIF_FixedGrids.in`, without reading any external file. In this procedure, however, no interpolation is performed, and the parent bathymetry is just reshaped with more grid points.
+
+This process is done also with a “lake-filling” algorithm that removes any small wet domains not connected to the zoom edges.
 
 `rn_scale` is a multiplicative factor for negative (`rn_scale=-1`) or positive (`rn_scale=1`) bathymetry values in input file.
 
-If you wish with to have a vertical grid refinement, you can set `ln_vert_remap = .true.`, and define the vertical coordinates choices in the namelist.
+If you wish to have a vertical grid refinement, you can set `ln_vert_remap = .true.`, and define the vertical coordinates choices in the namelist.
 
 For the case of two-way nesting, even if you already have a `domain_cfg.nc` file for your larger parent grid, when creating the child domains the tool will also compute a new domain file for the parent. The updated `domain_cfg.nc` includes some adjustments for consistency with AGRIF, ensuring compatibility between the parent and child grids. Such modifications occur only in the nested domain region, and can be adjustments in grid spacing, land-sea masks, or bathymetry corrections. Using the original `domain_cfg.nc` and not the one recreated is only possible in 1-way nesting.
 
 The child domains will have extra layers of grid points surrounding the computational domain, called "ghost cells". These cells are necessary to apply boundary conditions and ensure the accuracy of time stepping and numerical schemes. In AGRIF, the number of ghost cells is set to 4 by default in the child grid, and one ghost cell is masked.
 The parameter `npt_copy` refers to the width of the zone right inside the child grid, where the bathymetry is set to be equal to the parent one. This value is by default 4, to be coherent with the sponge zone used by the model.
 The parameter `npt_connect` corresponds to the connecting zone right after the copy zone, where the child bathymetry is linearly interpolated to the parent one. It is set as 2 by default.
-
-
