@@ -114,3 +114,7 @@ We can look at experiments 1), 2) and 3) to check the following conditions:
 * Compile and run with agrif, but no zooms
 * Compile and run with agrif, one zoom but same resolution
 * Compile and run with agrif plus zooms
+
+
+> [!TIP] 
+> [sette inputs](https://gws-access.jasmin.ac.uk/public/nemo/sette_inputs/)
