@@ -7,7 +7,7 @@
 
 This README.md serves as an Table of Contents.
 
-**Table of content:**
+**Prerequisites:**
 - [Install dependencies](chapters/Install_dependencies.md)
 - [Install NEMO v5.0](chapters/Install_NEMO.md)
 - [Build test cases with SETTE](chapters/Sette.md)
