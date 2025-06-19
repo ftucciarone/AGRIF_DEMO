@@ -125,6 +125,10 @@ echo " "
 ```
 
 ### Step 5: Install NetCDF-C and NetCDF-F
+As for the HDF5, you can control the version of NetCDF on the github page, update the variable `LIB_VERSION` and run the following.
+> [!IMPORTANT]
+> Order matters: NetCDF-C before, NetCDF-Fortran later. 
+
 ```shell
 # install netcdf-c
 cd $WORKDIR
@@ -135,8 +139,7 @@ cd netcdf-c-${LIB_VERSION}
 export CPPFLAGS="-I$INSTDIR/include -DpgiFortran"
 export LDFLAGS="-Wl,-rpath,$INSTDIR/lib -L$INSTDIR/lib -lhdf5_hl -lhdf5"
 export LIBS="-lmpi"
-./configure --prefix=$INSTDIR --enable-netcdf-4 --enable-shared \
-            --enable-parallel-tests
+./configure --prefix=$INSTDIR --enable-netcdf-4 --enable-shared --enable-parallel-tests
 make -j1
 ##make check
 make install
@@ -152,9 +155,7 @@ export LD_LIBRARY_PATH=${NCDIR}/lib:${LD_LIBRARY_PATH}
 export CPPFLAGS="-I$INSTDIR/include -DpgiFortran"
 export LDFLAGS="-Wl,-rpath,$INSTDIR/lib -L$INSTDIR/lib -lnetcdf -lhdf5_hl -lhdf5 -lz -lcurl"
 export LIBS="-lmpi"
-./configure --prefix=$INSTDIR \
-            --enable-shared --enable-parallel-tests \
-            --enable-parallel
+./configure --prefix=$INSTDIR --enable-shared --enable-parallel-tests --enable-parallel
 make -j1
 ##make check
 make install
