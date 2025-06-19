@@ -43,7 +43,7 @@ The first line indicates the number of zooms in the parent larger domain (2). Th
 
 If you wish to have a vertical refinement, like in this case for zoom 3, this is defined in `3_namelist_cfg` as:
 ```fortran
-ln_vert_remap   = .true. !  vertical remapping
+ln_vert_remap = .true. ! vertical remapping
  ```
 
 ## Creating the domain configuration files using `DOMAINcfg` tool:
@@ -83,3 +83,5 @@ For the case of two-way nesting, even if you already have a `domain_cfg.nc` file
 The child domains will have extra layers of grid points surrounding the computational domain, called "ghost cells". These cells are necessary to apply boundary conditions and ensure the accuracy of time stepping and numerical schemes. In AGRIF, the number of ghost cells is set to 4 by default in the child grid, and one ghost cell is masked.
 The parameter `npt_copy` refers to the width of the zone right inside the child grid, where the bathymetry is set to be equal to the parent one. This value is by default 4, to be coherent with the sponge zone used by the model.
 The parameter `npt_connect` corresponds to the connecting zone right after the copy zone, where the child bathymetry is linearly interpolated to the parent one. It is set as 2 by default.
+
+
