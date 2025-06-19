@@ -78,10 +78,8 @@ With `nn_bathy = 3` the tool will simply refine the parent bathymetry in the reg
 
 If you with to have a vertical grid refinement, you can set `ln_vert_remap = .true.`, and define the vertical coordinates choices in the namelist.
 
-Even if you already have a `domain_cfg.nc file for your larger parent grid, when creating the child domains the tool will create a new file also for the parent. The updated domain_cfg.nc includes some adjustments for consistency with AGRIF, ensuring compatibility between the parent and child grids. Such modifications occur only in the nested domain region, and can be adjustments in grid spacing, land-sea masks, or bathymetry corrections
+For the case of two-way nesting, even if you already have a `domain_cfg.nc` file for your larger parent grid, when creating the child domains the tool will also compute a new domain file for the parent. The updated `domain_cfg.nc` includes some adjustments for consistency with AGRIF, ensuring compatibility between the parent and child grids. Such modifications occur only in the nested domain region, and can be adjustments in grid spacing, land-sea masks, or bathymetry corrections. Using the original `domain_cfg.nc` and not the one recreated is only possible in 1-way nesting.
 
 The child domains will have extra layers of grid points surrounding the computational domain, called "ghost cells". These cells are necessary to apply boundary conditions and ensure the accuracy of time stepping and numerical schemes. In AGRIF, the number of ghost cells is set to 4 by default in the child grid, and one ghost cell is masked.
 The parameter `npt_copy` refers to the width of the zone right inside the child grid, where the bathymetry is set to be equal to the parent one. This value is by default 4, to be coherent with the sponge zone used by the model.
 The parameter `npt_connect` corresponds to the connecting zone right after the copy zone, where the child bathymetry is linearly interpolated to the parent one. It is set as 2 by default.
-
-
