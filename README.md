@@ -5,11 +5,15 @@
 
 [AGRIF](https://agrif.imag.fr) (Adaptive Grid Refinement In Fortran) is a library that allows the seamless space and time refinement over rectangular regions in NEMO. Refinement factors can be odd or even (usually lower than 5 to maintain stability). Interaction between grids is “two-way” in the sense that the parent grid feeds the child grid open boundaries and the child grid provides volume/area weighted averages of prognostic variables once a given number of time steps are completed. This page provide guidelines for how to use AGRIF in NEMO. For a more technical description of the library itself, please refer to the [User's guide](https://agrif.imag.fr/agrifusersguide.html) [(pdf)](https://agrif.imag.fr/_downloads/agrifdoc_usersguide.pdf) or the [Reference manual](https://agrif.imag.fr/DoxygenGeneratedDoc/html/index.html) [(pdf)](https://agrif.imag.fr/_downloads/refman.pdf).
 
+This README.md serves as an Table of Contents.
 
- 
- 
- Tutorial - draft
- 
+**Table of content:**
+- [Install dependencies](chapters/Install_dependencies.md)
+- [Install NEMO v5.0](chapters/Install_NEMO.md)
+- [Build test cases with SETTE](chapters/Sette.md)
+
+
+
 # Install dependencies (or link the dockerfile)
 
 # Downloading and compiling NEMO 5.0.1
