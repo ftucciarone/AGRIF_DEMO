@@ -30,7 +30,7 @@ We can use the  `LONG` example available in AGRIF_DEMO to go through the require
 
 To run AGRIF you need a configuration file that will define the hierarchy of all the subdomains: `AGRIF_FixedGrids.in`. This file is necessary either to run your model, but also if you need to create the `domain_cfg.nc` files for your models, as will be explained later.
 Bellow is how `AGRIF_FixedGrids.in` looks like in the test case example for AGRIF_DEMO:
-```
+```txt
 2
 45 85 52 94 1 1 1
 121 146 113 133 4 4 4
@@ -42,29 +42,29 @@ Bellow is how `AGRIF_FixedGrids.in` looks like in the test case example for AGRI
 The first line indicates the number of zooms in the parent larger domain (2). The following lines indicate the position of these nested domains in the parent grid (e.g. imin=45, imax=85, jmin=52, jmax=94). The last three values in these lines indicate the horizontal (rx and ry) and time (rt) refinement of each nested model (e.g. rx=4, ry=4, rt=4 for zoom 2). Please note that in this example zoom 1 has the same resolution as the parent, so in this case the refinement is always equals to 1. The following lines indicate the subsequent multiple nesting configuration, if there is. In the zoom 1 there is no embedded zoom domain, so it is 0. Inside zoom 2 there is a nested zoom 3, so we indicate 1 and the following lines follow the same rule as explained above.
 
 If you wish to have a vertical refinement, like in this case for zoom 3, this is defined in `3_namelist_cfg` as:
-```
+```fortran
 ln_vert_remap   = .true. !  vertical remapping
  ```
 
 ## Creating the domain configuration files using `DOMAINcfg` tool:
 
 Before compiling the tool, you will need to add the `key_agrif` to your cpp file:
-```
+```shell
 /path/to/nemo-5.0.1/tools/DOMAINcfg/cpp_DOMAINcfg.fcm
 ```
 After that you can compile the DOMAINcfg tool using this command:
-```
+```shell
 ./maketools -m [...] -n DOMAINcfg
 ```
 Parent domain will be defined based on the specifications of the namelist, either by reading a configuration file (ln_read_cfg = .true.) or by defining manually in your namelist (e.g. ppglam0, ppgphi0).
 Child domain will be defined based on `AGRIF_FixedGrids.in`, with respect to parent grid information.
 
 The bathymetry for each of the grids will be computed based on the information you put in `nn_bathy`:
-```
-   nn_bathy    =    1      ! = 0 compute analyticaly
-                          ! = 1 read the bathymetry file
-                          ! = 2 compute from external bathymetry
-                          ! = 3 compute from parent (if "key_agrif")
+```fortran
+nn_bathy = 1  ! = 0 compute analyticaly
+              ! = 1 read the bathymetry file
+              ! = 2 compute from external bathymetry
+              ! = 3 compute from parent (if "key_agrif")
 ```
 
 For the option `nn_bathy = 1` the bathymetry needs to be already interpolated to the model grid. For the parent grid, if you provide a coordinates file (`ln_read_cfg = .true.`), longitude and latitude definitions will follow this file. If you set `ln_read_cfg = .false.`, the coordinates of the output `domain_cfg.nc` will follow the definitions in the `namelist_cfg`, where you define, for example, ilon and ilat (`ppglam0, ppgphi0`),  grid spacing (`ppe1_deg, ppe2_deg`), etc.
