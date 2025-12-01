@@ -165,7 +165,7 @@ echo " "
 ## Install XIOS
 
 ## Install ncview (optional but nice to have)
-UDUNITS must be installed locally, as it is needed each time you open ncview. Xaw is not necessary all the time.
+[UDUNITS](https://docs.unidata.ucar.edu/udunits/current/#Unix) must be installed locally, as it is needed each time you open ncview. [Xaw](https://manpages.ubuntu.com/manpages/questing/man3/Xaw.3.html) (also known as Athena Widgets) is not necessary all the time, just at installation time.
 ```
 sudo-g5k apt-get install libxaw7-dev
 cd $WORKDIR
