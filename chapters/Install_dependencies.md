@@ -163,3 +163,13 @@ echo " "
 ```
 
 ## Install XIOS
+
+## Install ncview (optional but nice to have)
+```
+sudo-g5k apt-get install  libudunits2-0 libudunits2-data libudunits2-dev udunits-bin libxaw7-dev
+cd $WORKDIR
+wget https://cirrus.ucsd.edu/~pierce/ncview/ncview-2.1.11.tar.gz
+tar -zxvf ncview-2.1.11.tar.gz
+cd ncview-2.1.11/
+./configure --prefix=$INSTDIR --with-nc-config=$INSTDIR/bin/nc-config
+```
