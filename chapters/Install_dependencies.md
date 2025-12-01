@@ -165,9 +165,23 @@ echo " "
 ## Install XIOS
 
 ## Install ncview (optional but nice to have)
+UDUNITS must be installed locally, as it is needed each time you open ncview. Xaw is not necessary all the time.
 ```
-sudo-g5k apt-get install  libudunits2-0 libudunits2-data libudunits2-dev udunits-bin libxaw7-dev
+sudo-g5k apt-get install libxaw7-dev
 cd $WORKDIR
+wget https://downloads.unidata.ucar.edu/udunits/2.2.28/udunits-2.2.28.tar.gz
+tar -zxvf udunits-2.2.28.tar.gz
+cd udunits-2.2.28
+./configure --prefix=$INSTDIR
+make
+make install
+```
+and add the following line to your `$HOME/.bashrc` file
+```
+export LD_LIBRARY_PATH=/home/ftucciarone/nemo/installs/lib/
+```
+and now ncview
+```
 wget https://cirrus.ucsd.edu/~pierce/ncview/ncview-2.1.11.tar.gz
 tar -zxvf ncview-2.1.11.tar.gz
 cd ncview-2.1.11/
