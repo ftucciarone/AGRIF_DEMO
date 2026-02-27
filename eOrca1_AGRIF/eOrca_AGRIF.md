@@ -178,11 +178,19 @@ and then we add the options for AGRIF as
 ```
 
 ### Create the `AGRIF_FixedGrids.in` file
+Mediterranean 1/12 (double refinement)
 ```shell
 1
 250 350 205 285 3 3 3
 0
 ```
+Southern Pacific Zoom
+```
+1
+108 208  65 165 3 3 3
+0
+```
+
 ### In namelist_cfg 
 ```
 !-----------------------------------------------------------------------
