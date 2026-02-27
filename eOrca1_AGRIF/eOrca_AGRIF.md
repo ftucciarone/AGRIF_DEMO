@@ -198,14 +198,14 @@ and then we add the options for AGRIF as
    !                       !
    cp_cfg      =  "orca"   !  name of the configuration
    jp_cfg      =       2   !  resolution of the configuration
-   jpidta      =     180   !  1st lateral dimension ( >= jpi )
-   jpjdta      =     148   !  2nd    "         "    ( >= jpj )
+   jpidta      =     360   !  1st lateral dimension ( >= jpi )
+   jpjdta      =     331   !  2nd    "         "    ( >= jpj )
    jpkdta      =      75   !  number of levels      ( >= jpk )
-   Ni0glo      =     180   !  1st dimension of global domain --> i =jpidta
-   Nj0glo      =     148   !  2nd    -                  -    --> j  =jpjdta
+   Ni0glo      =     360   !  1st dimension of global domain --> i =jpidta
+   Nj0glo      =     331   !  2nd    -                  -    --> j  =jpjdta
    jpkglo      =      75
    jperio      =       4   !  lateral cond. type (between 0 and 6)
    ln_domclo = .false.     ! computation of closed sea masks (see namclo)
 /
 ```
-one has to change the number of levels to 75
+one has to manually insert the dimensions of the parent grid here!!!
