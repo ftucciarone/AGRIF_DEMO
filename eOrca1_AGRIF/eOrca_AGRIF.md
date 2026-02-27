@@ -181,7 +181,5 @@ and then we add the options for AGRIF as
 ```shell
 1
 250 350 205 285 3 3 3
-1
- 80 230  80 160 4 4 4
 0
 ```
