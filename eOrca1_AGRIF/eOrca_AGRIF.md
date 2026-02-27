@@ -109,7 +109,7 @@ bld::tool::fppkeys   key_si3 key_xios key_qco key_isf key_vco_1d3d key_RK3
 
 3) Compile the code
 ```shell
-./makenemo -m 'auto' -r ORCA2_ICE_PISCES -n $Cfg_name -j 32;
+./makenemo -m 'auto' -r ORCA2_ICE_PISCES -n $Cfg_name -j 8;
 ```
 
 ### Linking the static files
@@ -164,3 +164,15 @@ make it executable as
 chmod +x make_links.sh
 ```
 and finally execute it as `./make_links.sh`. This will create links to the static files inside the experiment folder, so that the namelist will find all the necessary data.
+
+## Create the AGRIF zoom
+Here we follow the [official guide](https://sites.nemo-ocean.io/user-guide/zooms.html)
+
+In particular, to avoid compilation issues, we run `./makenemo clean` on the configuration before activating `key_agrif` the first time.
+```shell
+./makenemo -m 'auto' -r ORCA2_ICE_PISCES -n $Cfg_name -j 8 clean;
+```
+and then we add the options for AGRIF as
+```shell
+./makenemo -m 'auto' -r ORCA2_ICE_PISCES -n $Cfg_name -j 8 -d 'OCE ... NST' add_key 'key_agrif';
+```
