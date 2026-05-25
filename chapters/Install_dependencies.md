@@ -178,7 +178,7 @@ make install
 ```
 and add the following line to your `$HOME/.bashrc` file
 ```
-export LD_LIBRARY_PATH=/home/ftucciarone/nemo/installs/lib/
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/nemo/installs/lib/"
 ```
 and now ncview
 ```
