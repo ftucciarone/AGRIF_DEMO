@@ -186,4 +186,7 @@ wget https://cirrus.ucsd.edu/~pierce/ncview/ncview-2.1.11.tar.gz
 tar -zxvf ncview-2.1.11.tar.gz
 cd ncview-2.1.11/
 ./configure --prefix=$INSTDIR --with-nc-config=$INSTDIR/bin/nc-config
+make -j1
+##make check
+make install
 ```
