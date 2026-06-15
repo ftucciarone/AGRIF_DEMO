@@ -252,5 +252,41 @@ and then included in the namelist file as shown below:
 one has to manually insert the dimensions of the parent grid here!!!
 
 ## Creating the Weights for Interpolation on the fly
+Compile `WEIGHTS` as
+```shell
+./tools/maketools -m 'auto' -n WEIGHTS
+```
+and then modify the `create_weights.py` file to create weights for the necessary files. This should look something like:
+``python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
+import os
+import subprocess
+import re
+from netCDF4 import Dataset
 
+#
+# BEGIN USER MODIFICATIONS
+#
+
+# Directory with domccfg target file
+DOMCFG_DIR="path/to/DOMAINcfg/cfgs/Med_AGRIF/"
+# Suffix of domcfg files
+RAD='domain_cfg.nc'
+# Directory with original forcing on native grid
+FORCING_DIR="path/to/input-eOrca1/"
+# Forcing file names, interpolation method (default bilin), and weigth file name (optional), lon(optional), lat(optional)
+FILES=[
+['forcing_ORCA1/u_10.15JUNE2009_fill.nc'              , 'bicub', 'weights_coreII_2_eORCA1.4.2_bicubic.nc'  , '', ''],
+['forcing_ORCA1/ncar_rad.15JUNE2009_fill.nc'          , 'bilin', 'weights_coreII_2_eORCA1.4.2_bilinear.nc' , '', ''],
+['input_fields/eddy_viscosity_3D.nc'                  , 'bilin', 'weights_eddy_visc_bilinear.nc' ,'',''],
+['input_fields/geothermal_heat_flux.nc'               , 'bilin', 'weights_ghflux_bilinear.nc'    ,'',''],
+['input_fields/merged_ESACCI_BIOMER4V1R1_CHL_REG05.nc', 'bilin', 'weights_reg05_bilinear.nc'     ,'',''],
+['input_fields/runoff-icb_DaiTrenberth_Depoorter.nc'  , 'bilin', 'weights_runoff-icb_bilinear.nc' ,'',''],
+['input_fields/sss_climatology_for_restoring.nc'      , 'bilin', 'weights_sss_clima_bilinear.nc' ,'',''],
+['input_fields/zdfiwm_forcing_TRA.nc'                 , 'bilin', 'weights_zdfiwm_bilinear.nc' ,'',''],
+['initial_conditions/woce_salt_monthly_init_4p2.nc'   , 'bilin', 'weights_woce_salt_bilinear.nc' ,'',''],
+['initial_conditions/woce_temp_monthly_init_4p2.nc'   , 'bilin', 'weights_woce_temp_bilinear.nc' ,'','']
+]
+```
