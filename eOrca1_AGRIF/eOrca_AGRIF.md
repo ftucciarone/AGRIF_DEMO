@@ -202,6 +202,28 @@ Both
  80 230  80 160 4 4 4
 0
 ```
+
+# Creating the `domain_cfg.nc` file with `DOMAINcfg` tool
+First of all, it is safer to create a bash script to copy the important files to the DOMAINcfg folder. This is critical as the tool will overwrite the input `domain_cfg.nc` file, hence at every time one has to re-run the procedure one has to copy the input files again.
+```shell
+#!/bin/bash
+root_dir=/path/to/work/dir
+eOrca_input_dir=$root_dir/input-eOrca1
+AGRIF_input_dir=$root_dir/input-AGRIF
+
+#
+# Input domain file
+#
+cp $eOrca_input_dir/input_fields/domain_cfg.nc .
+cp $AGRIF_input_dir/DOMAINcfg/namelist_cfg .
+# The bathymetry is not modified, hence one can actually just link it
+ln -s $AGRIF_input_dir/GEBCO_2020.nc .
+```
+The `namelist_cfg` file should be edited with the dimensions of the input `domain_cfg.nc` file. The dimension can be checked with 
+```shell
+ncdump -h domain_cfg.nc
+```
+and then included in the namelist file as shown below:
 ### In namelist_cfg 
 ```
 !-----------------------------------------------------------------------
