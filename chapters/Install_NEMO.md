@@ -1,3 +1,8 @@
+**Prerequisites:**
+- [Install dependencies](Install_dependencies.md)
+- [The safe way: use a Docker container](Docker.md)
+
+
 # Downloading and compiling NEMO 5.0.1
 
 Downloading NEMO 5.0.1.
