@@ -252,3 +252,7 @@ make -j1
 ##make check
 make install
 ```
+
+**Go to the next steps:**
+- [Install NEMO v5.0](chapters/Install_NEMO.md)
+- [Build test cases with SETTE](chapters/Sette.md)
