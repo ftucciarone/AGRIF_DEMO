@@ -224,7 +224,7 @@ HDF5_LIB="-lhdf5_hl -lhdf5 -lhdf5 -lz"
 ```
 Once done, one can compile XIOS as
 ```shell
-./make_xios --arch GCC_LINUX --job 16
+./make_xios --arch GCC_LINUX_local --job 16
 ```
 ## Install ncview (optional but nice to have)
 [UDUNITS](https://docs.unidata.ucar.edu/udunits/current/#Unix) must be installed locally, as it is needed each time you open ncview. [Xaw](https://manpages.ubuntu.com/manpages/questing/man3/Xaw.3.html) (also known as Athena Widgets) is not necessary all the time, just at installation time.
