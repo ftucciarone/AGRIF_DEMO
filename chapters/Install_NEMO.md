@@ -12,9 +12,13 @@ https://forge.nemo-ocean.eu/nemo/nemo/-/releases/5.0.1
 
 ```shell
 git clone --branch 5.0   https://forge.nemo-ocean.eu/nemo/nemo.git nemo-5.0
+rm -rf $(find . -iname .gitlab)
+rm -rf $(find . -iname .gitlab-ci)
 ```
 ```shell
 git clone --branch 5.0.1 https://forge.nemo-ocean.eu/nemo/nemo.git nemo-5.0.1
+rm -rf $(find . -iname .gitlab)
+rm -rf $(find . -iname .gitlab-ci)
 ```
 The NEMO Ocean Engine Reference manual has been updated for version 5.0 and can be downloaded at https://zenodo.org/records/14515373. 
 
