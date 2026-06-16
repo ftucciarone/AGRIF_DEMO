@@ -254,5 +254,5 @@ make install
 ```
 
 **Go to the next steps:**
-- [Install NEMO v5.0](chapters/Install_NEMO.md)
-- [Build test cases with SETTE](chapters/Sette.md)
+- [Install NEMO v5.0](Install_NEMO.md)
+- [Build test cases with SETTE](Sette.md)
