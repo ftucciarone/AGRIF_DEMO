@@ -163,7 +163,69 @@ echo " "
 ```
 
 ## Install XIOS
+```shell
+mkdir -p $XIOSDIR
+cd $XIOSDIR
+svn co -r 2701 http://forge.ipsl.fr/ioserver/svn/XIOS/trunk xios-trunk
+rm -rf $(find . -iname .svn)
+cd ..
+```
+then we need an environment file: `arch-GCC_LINUX_local.env`
+```shell
+# ATTENTION INSTDIR must be defined before
 
+export HDF5_INC_DIR=$INSTDIR/include
+export HDF5_LIB_DIR=$INSTDIR/lib
+
+export NETCDF_INC_DIR=$INSTDIR/include
+export NETCDF_LIB_DIR=$INSTDIR/lib
+```
+
+an fcm file: `arch-GCC_LINUX_local.fcm`
+```shell
+################################################################################
+###################                Projet XIOS               ###################
+################################################################################
+
+%CCOMPILER      mpicc
+%FCOMPILER      mpif90
+%LINKER         mpif90
+
+%BASE_CFLAGS    -std=c++11
+%PROD_CFLAGS    -O3 -DBOOST_DISABLE_ASSERTS
+%DEV_CFLAGS     -g -O2 
+%DEBUG_CFLAGS   -g 
+
+%BASE_FFLAGS    -D__NONE__ 
+%PROD_FFLAGS    -O3
+%DEV_FFLAGS     -g -O2
+%DEBUG_FFLAGS   -g 
+
+%BASE_INC       -D__NONE__
+%BASE_LD        -lstdc++
+
+%CPP            cpp
+%FPP            cpp -P
+%MAKE           make
+```
+and finally a path file:`arch-GCC_LINUX_local.path`
+```shell
+NETCDF_INCDIR="-I$NETCDF_INC_DIR"
+NETCDF_LIBDIR="-Wl,-rpath,$NETCDF_LIB_DIR -L$NETCDF_LIB_DIR"
+NETCDF_LIB="-lnetcdff -lnetcdf"
+
+MPI_INCDIR=""
+MPI_LIBDIR=""
+MPI_LIB="-lcurl"
+
+HDF5_INCDIR="-I$HDF5_INC_DIR"
+HDF5_LIBDIR="-Wl,-rpath,$HDF5_LIB_DIR -L$HDF5_LIB_DIR"
+HDF5_LIB="-lhdf5_hl -lhdf5 -lhdf5 -lz"
+```
+Once done, one can compile XIOS as
+```shell
+./make_xios --arch GCC_LINUX --job 16
+```
 ## Install ncview (optional but nice to have)
 [UDUNITS](https://docs.unidata.ucar.edu/udunits/current/#Unix) must be installed locally, as it is needed each time you open ncview. [Xaw](https://manpages.ubuntu.com/manpages/questing/man3/Xaw.3.html) (also known as Athena Widgets) is not necessary all the time, just at installation time.
 ```
